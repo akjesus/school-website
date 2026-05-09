@@ -15,6 +15,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import Posts from "../pages/admin/Posts";
 import CreatePost from "../pages/admin/CreatePost";
 import Login from "../pages/admin/Login";
+import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoutes";
 
 
@@ -57,6 +58,7 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

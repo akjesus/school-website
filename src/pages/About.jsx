@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import { GraduationCap, Target, Eye, Users } from "lucide-react";
+import { motion } from "framer-motion";
 
 function About() {
   return (
@@ -150,7 +151,95 @@ function About() {
           )}
         </div>
       </section>
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          {/* HEADER */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold text-[#062E70] mb-4">
+              School Anthem
+            </h2>
 
+            <p className="text-gray-600 text-lg">
+              A reflection of our values, unity, and commitment to excellence.
+            </p>
+          </motion.div>
+
+          {/* ANTHEM CARD */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-3xl shadow-sm p-8 md:p-12"
+          >
+            {/* OPTIONAL AUDIO */}
+            <div className="mb-8">
+              <audio controls className="w-full">
+                <source src="/anthem.mp3" type="audio/mpeg" />
+                Your browser does not support audio playback.
+              </audio>
+            </div>
+
+            {/* LYRICS */}
+            <div className="space-y-6 text-gray-700 leading-8 text-center">
+              <p>
+                <b>Intro:</b>
+                <br />
+                Maduka University College A citadel of excellence
+                <br />
+                Maduka University College A citadel of knowledge
+                <br /> <b>Verse 1:</b>
+                <br /> We'll be all we want to be
+                <br />
+                We'll grow to take glorious seats
+                <br />
+                Bringing love and light to our nation
+                <br />A citadel of knowledge
+                <br />
+                <b>Verse 2:</b>
+                <br />
+                We are nurtured and groomed
+                <br />
+                To save the world sinking into doom
+                <br /> We'll heal the heart of humanity
+                <br />A citadel of excellence
+              </p>
+            </div>
+          </motion.div>
+          {/* ANTHEM CARD */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-3xl shadow-sm p-8 md:p-12"
+          >
+            {/* LYRICS */}
+            <div className="space-y-6 text-gray-700 leading-8 text-center">
+              <p>
+                <b>SCHOOL CREED:</b>
+                <br />
+                To you Maduka University College, <br />
+                My alma mater, my rock; <br />
+                I pledge my allegiance,
+                <br />
+                To harness our God-given reserves,
+                <br />
+                And to be a light that ignite my world,
+                <br /> Living in love and service to humanity,
+                <br />
+                For in God I trust to excel
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
       {/* CTA */}
       <section className="bg-blue-800 text-white py-24 text-center">
         <h2 className="text-4xl font-bold mb-4">Join Our School Community</h2>

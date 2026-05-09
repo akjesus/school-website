@@ -65,7 +65,7 @@ function Gallery() {
               onClick={() => setFilter(cat)}
               className={`px-5 py-2 rounded-full border transition ${
                 filter === cat
-                  ? "bg-blue-700 text-white"
+                  ? "bg-[#062E70] text-white"
                   : "bg-white text-gray-700 hover:bg-blue-50"
               }`}
             >
@@ -132,7 +132,7 @@ function Gallery() {
               key={index}
               className="bg-gray-50 p-8 rounded-3xl shadow-sm hover:shadow-md transition"
             >
-              <h2 className="text-4xl font-bold text-blue-700">
+              <h2 className="text-4xl font-bold text-[#062E70]">
                 {stat.number}
               </h2>
               <p className="text-gray-600 mt-2">{stat.label}</p>
@@ -144,7 +144,7 @@ function Gallery() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
           {/* TEXT */}
           <div>
-            <h2 className="text-4xl font-bold text-blue-700 mb-6">
+            <h2 className="text-4xl font-bold text-[#062E70] mb-6">
               School Life in Motion
             </h2>
 
@@ -172,7 +172,7 @@ function Gallery() {
       </section>
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 text-center mb-12">
-          <h2 className="text-4xl font-bold text-blue-700">
+          <h2 className="text-4xl font-bold text-[#062E70]">
             Campus Life Highlights
           </h2>
 
@@ -206,7 +206,7 @@ function Gallery() {
               <img src={item.img} className="h-56 w-full object-cover" />
 
               <div className="p-6">
-                <h3 className="text-xl font-bold text-blue-700 mb-2">
+                <h3 className="text-xl font-bold text-[#062E70] mb-2">
                   {item.title}
                 </h3>
 

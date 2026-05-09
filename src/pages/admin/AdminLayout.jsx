@@ -27,8 +27,6 @@ function AdminLayout({ children }) {
     { name: "Dashboard", path: "/admin", icon: FaHome },
     { name: "Posts", path: "/admin/posts", icon: FaNewspaper },
     { name: "Create", path: "/admin/create", icon: FaPlus },
-    { name: "Analytics", path: "/admin/analytics", icon: FaChartBar },
-    { name: "Users", path: "/admin/users", icon: FaUser },
   ];
 
   return (
