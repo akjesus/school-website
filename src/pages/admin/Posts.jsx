@@ -36,18 +36,18 @@ function Posts() {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h1 className="text-3xl font-bold">News & Events</h1>
 
         <input
           placeholder="Search posts..."
-          className="border px-4 py-2 rounded-xl w-72"
+          className="border px-4 py-2 rounded-xl w-full md:w-72"
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       {/* GRID */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <AnimatePresence>
           {filtered.map((post) => (
             <motion.div

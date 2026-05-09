@@ -35,7 +35,7 @@ function Dashboard() {
       <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
 
       {/* CARDS */}
-      <div className="grid md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         {cards.map((item, i) => {
           const Icon = item.icon;
 

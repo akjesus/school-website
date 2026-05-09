@@ -43,19 +43,16 @@ export default function Footer() {
 
             {/* SOCIALS */}
             <div className="flex items-center gap-4">
-              {[
-                FaFacebookF,
-                FaInstagram,
-                FaXTwitter,
-                FaYoutube,
-              ].map((Icon, index) => (
-                <button
-                  key={index}
-                  className="bg-gray-900 hover:bg-[#062E70] transition p-3 rounded-xl"
-                >
-                  <Icon size={20} />
-                </button>
-              ))}
+              {[FaFacebookF, FaInstagram, FaXTwitter, FaYoutube].map(
+                (Icon, index) => (
+                  <button
+                    key={index}
+                    className="bg-gray-900 hover:bg-[#062E70] transition p-3 rounded-xl"
+                  >
+                    <Icon size={20} />
+                  </button>
+                ),
+              )}
             </div>
           </div>
 
@@ -90,9 +87,7 @@ export default function Footer() {
 
           {/* ACADEMICS */}
           <div>
-            <h3 className="text-xl font-semibold text-white mb-6">
-              Academics
-            </h3>
+            <h3 className="text-xl font-semibold text-white mb-6">Academics</h3>
 
             <ul className="space-y-4">
               {[
@@ -130,12 +125,10 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">
-                    Phone Number
-                  </p>
+                  <p className="text-white font-medium">Phone Number</p>
 
                   <p className="text-gray-400">
-                    0805 509 1883
+                    08055091883, 09150991333
                   </p>
                 </div>
               </div>
@@ -146,12 +139,10 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">
-                    Email Address
-                  </p>
+                  <p className="text-white font-medium">Email Address</p>
 
                   <p className="text-gray-400">
-                    info@mucollege.com.ng
+                    college@madukauniversity.edu.ng
                   </p>
                 </div>
               </div>
@@ -162,12 +153,11 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">
-                    School Address
-                  </p>
+                  <p className="text-white font-medium">School Address</p>
 
                   <p className="text-gray-400">
-                    Ekwegbe, Igbo-Etiti LGA by Enugu-Nsukka new road , Enugu, Nigeria
+                    Ekwegbe, Igbo-Etiti LGA by Enugu-Nsukka new road , Enugu,
+                    Nigeria
                   </p>
                 </div>
               </div>
@@ -188,8 +178,8 @@ export default function Footer() {
               </h2>
 
               <p className="text-blue-100 leading-relaxed">
-                Get the latest updates on admissions, events,
-                announcements, and academic activities.
+                Get the latest updates on admissions, events, announcements, and
+                academic activities.
               </p>
             </div>
 

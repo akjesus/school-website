@@ -28,12 +28,12 @@ function Contact() {
             {
               icon: FaPhoneAlt,
               title: "Phone",
-              value: "0805 509 1883",
+              value: "08055091883, 09150991333",
             },
             {
               icon: FaEnvelope,
               title: "Email",
-              value: "info@mucollege.com.ng",
+              value: "college@madukauniversity.edu.ng",
             },
             {
               icon: FaMapMarkerAlt,

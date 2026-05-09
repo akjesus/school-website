@@ -24,13 +24,13 @@ function CreatePost() {
     <AdminLayout>
       <h1 className="text-3xl font-bold mb-6">Create New Post</h1>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* FORM */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white p-6 rounded-2xl shadow space-y-4"
+          className="bg-white p-4 md:p-6 rounded-2xl shadow space-y-4"
         >
           <input
             name="title"
@@ -76,7 +76,7 @@ function CreatePost() {
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-gray-50 p-6 rounded-2xl border"
+          className="bg-gray-50 p-4 md:p-6 rounded-2xl border"
         >
           <h2 className="text-xl font-bold mb-4">Live Preview</h2>
 
