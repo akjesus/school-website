@@ -18,22 +18,22 @@ const images = [
   {
     id: 3,
     category: "Sports",
-    url: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/7.jpg",
   },
   {
     id: 4,
     category: "Lab",
-    url: "https://images.unsplash.com/photo-1581092335397-9fa7c7c4d3d6?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/9.jpg",
   },
   {
     id: 5,
     category: "Events",
-    url: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/8.jpg",
   },
   {
     id: 6,
     category: "Classroom",
-    url: "https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/4.jpg",
   },
 ];
 

@@ -94,7 +94,7 @@ function About() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl font-bold text-[#062E70] mb-6">
-              Message from the Principal
+              Message from the Proprietor
             </h2>
 
             <p className="text-gray-600 leading-relaxed mb-4">
@@ -119,14 +119,14 @@ function About() {
             </p>
 
             <p className="font-semibold text-[#062E70]">
-              — Principal, Maduka University College
+              — Proprietor, Maduka University College
             </p>
           </div>
 
           <img
-            src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=1600&auto=format&fit=crop"
+            src="/images/sam.webp"
             className="rounded-3xl shadow-xl"
-            alt="principal"
+            alt="proprietor"
           />
         </div>
       </section>
