@@ -7,24 +7,21 @@ import "swiper/css/navigation";
 
 const slides = [
   {
-    image:
-      "/images/1.jpg",
+    image: "/images/1.jpg",
     title: "Building Future Leaders",
     subtitle:
       "World-class secondary education focused on excellence and innovation.",
   },
 
   {
-    image:
-      "/images/2.jpg",
+    image: "/images/2.jpg",
     title: "A Modern Learning Environment",
     subtitle:
       "Equipping students with skills for the future through modern education.",
   },
 
   {
-    image:
-      "/images/3.jpg",
+    image: "/images/3.jpg",
     title: "Academic Excellence & Discipline",
     subtitle:
       "Nurturing creativity, leadership, discipline, and academic success.",
@@ -77,7 +74,7 @@ function HeroSlider() {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                      <button className="bg-[#06270] hover:bg-blue-800 text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
+                      <button className="bg-[#062E70] hover:bg-blue-800 text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
                         Explore School
                       </button>
 

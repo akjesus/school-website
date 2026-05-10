@@ -8,12 +8,12 @@ const images = [
   {
     id: 1,
     category: "Events",
-    url: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/1.jpg",
   },
   {
     id: 2,
     category: "Classroom",
-    url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop",
+    url: "/images/2.jpg",
   },
   {
     id: 3,
@@ -186,17 +186,17 @@ function Gallery() {
             {
               title: "Sports Excellence",
               desc: "Students actively participate in inter-house sports competitions.",
-              img: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?q=80&w=1600&auto=format&fit=crop",
+              img: "/images/3.jpg",
             },
             {
               title: "Academic Excellence",
               desc: "Modern classrooms that encourage interactive learning.",
-              img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop",
+              img: "/images/4.jpg",
             },
             {
               title: "School Events",
               desc: "Cultural days, graduation ceremonies, and special events.",
-              img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1600&auto=format&fit=crop",
+              img: "/images/5.jpg",
             },
           ].map((item, index) => (
             <div

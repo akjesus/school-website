@@ -47,13 +47,13 @@ function Admissions() {
             Admission Requirements
           </h2>
 
-          <ul className="list-disc pl-6 space-y-2 text-gray-600 text-center ">
-            <li>Completed application form</li>
-            <li>Recent passport photograph</li>
-            <li>Previous school report</li>
-            <li>Birth certificate</li>
-            <li>Entrance examination (for new students)</li>
-          </ul>
+          <div className="list-disc pl-6 space-y-2 text-gray-600 text-center ">
+            <p>Completed application form</p>
+            <p>Recent passport photograph</p>
+            <p>Previous school report</p>
+            <p>Birth certificate</p>
+            <p>Entrance examination (for new students)</p>
+          </div>
         </div>
       </section>
 
@@ -249,9 +249,11 @@ function Admissions() {
           Contact our admissions office for assistance.
         </p>
 
-        <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold">
-          Contact Us
-        </button>
+        <a href="/contact">
+          <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:cursor-pointer hover:bg-gray-100 transition">
+            Contact Us
+          </button>
+        </a>
       </section>
 
       <Footer />

@@ -194,9 +194,11 @@ function Contact() {
             Begin your child’s journey toward academic excellence today.
           </p>
 
-          <button className="bg-white text-blue-900 px-8 py-4 rounded-2xl font-bold">
-            Apply Now
-          </button>
+          <a href="/admissions">
+            <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:cursor-pointer hover:bg-gray-100 transition">
+              Apply Now
+            </button>
+          </a>
         </div>
       </section>
 

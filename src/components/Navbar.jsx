@@ -38,7 +38,7 @@ export default function Navbar() {
       name: "Contact",
       path: "/contact",
     },
-    { name: "Admin", path: "/admin" },
+    { name: "Portal", path: "https://portal.mucollege.com.ng" },
   ];
 
   return (
@@ -67,7 +67,7 @@ export default function Navbar() {
                 </div>
               </a>
               {/* DESKTOP MENU */}
-              <div className="hidden lg:flex items-center gap-8">
+              <div className="hidden lg:flex items-center gap-6">
                 {navLinks.map((link, index) => (
                   <NavLink key={index} to={link.path} className={linkClass}>
                     {link.name}
