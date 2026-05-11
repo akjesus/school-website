@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Swal from "sweetalert2";
 
 function Admissions() {
   const steps = ["Student Info", "Academic Info", "Parent Info", "Review"];
@@ -16,20 +17,120 @@ function Admissions() {
     parentName: "",
     parentPhone: "",
   });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  const nextStep = () => setStep((prev) => prev + 1);
+  const nextStep = () => {
+    if (!validateStep()) return;
+    setStep((prev) => prev + 1);
+  };
   const prevStep = () => setStep((prev) => prev - 1);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
+
+  const validateField = (fieldName) => {
+    if (!form[fieldName]?.trim()) {
+      setErrors((prev) => ({
+        ...prev,
+        [fieldName]: `${fieldLabels[fieldName]} is required.`,
+      }));
+      return false;
+    }
+
+    setErrors((prev) => ({ ...prev, [fieldName]: "" }));
+    return true;
+  };
+
+  const requiredFieldsByStep = [
+    ["fullName", "email", "phone"],
+    ["address", "classApplyingFor"],
+    ["parentName", "parentPhone"],
+    [],
+  ];
+
+  const fieldLabels = {
+    fullName: "Full Name",
+    email: "Email Address",
+    phone: "Phone Number",
+    address: "Home Address",
+    classApplyingFor: "Class Applying For",
+    parentName: "Parent Name",
+    parentPhone: "Parent Phone Number",
+  };
+
+  const validateStep = () => {
+    const missingFields = requiredFieldsByStep[step].filter(
+      (field) => !form[field]?.trim(),
+    );
+
+    if (missingFields.length > 0) {
+      const newErrors = missingFields.reduce(
+        (acc, field) => ({
+          ...acc,
+          [field]: `${fieldLabels[field]} is required.`,
+        }),
+        {},
+      );
+      setErrors((prev) => ({ ...prev, ...newErrors }));
+
+      Swal.fire({
+        icon: "error",
+        title: "Complete this step",
+        text: `Please fill in ${missingFields
+          .map((field) => fieldLabels[field])
+          .join(", ")} before proceeding.`,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const isStepComplete = () =>
+    requiredFieldsByStep[step].every((field) => form[field]?.trim());
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    alert("Application submitted successfully!");
   };
 
+  const handleFinalSubmit = () => {
+    Swal.fire({
+      title: "Confirm Submission",
+      text: "Are you sure you want to submit your application? Please review your details before confirming.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#047b2c",
+      cancelButtonColor: "#e64c13",
+      confirmButtonText: "Yes, Submit",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setSubmitted(true);
+        Swal.fire({
+          title: "Success!",
+          text: "Your application has been submitted successfully!",
+          icon: "success",
+        }).then(() => {
+          setForm({
+            fullName: "",
+            email: "",
+            phone: "",
+            address: "",
+            classApplyingFor: "",
+            parentName: "",
+            parentPhone: "",
+          });
+          setErrors({});
+          setStep(0);
+          setSubmitted(false);
+        });
+      }
+    });
+  };
   return (
     <>
       <Navbar />
@@ -104,23 +205,42 @@ function Admissions() {
                 <input
                   name="fullName"
                   placeholder="Full Name"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.fullName}
+                  className={`w-full border p-3 rounded-xl ${errors.fullName ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.fullName && (
+                  <p className="text-sm text-red-600">{errors.fullName}</p>
+                )}
 
                 <input
                   name="email"
+                  type="email"
                   placeholder="Email Address"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.email}
+                  className={`w-full border p-3 rounded-xl ${errors.email ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-600">{errors.email}</p>
+                )}
 
                 <input
                   name="phone"
                   placeholder="Phone Number"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.phone}
+                  className={`w-full border p-3 rounded-xl ${errors.phone ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.phone && (
+                  <p className="text-sm text-red-600">{errors.phone}</p>
+                )}
               </motion.div>
             )}
             {/* CLASS */}
@@ -135,14 +255,23 @@ function Admissions() {
                 <input
                   name="address"
                   placeholder="Home Address"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.address}
+                  className={`w-full border p-3 rounded-xl ${errors.address ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.address && (
+                  <p className="text-sm text-red-600">{errors.address}</p>
+                )}
 
                 <select
                   name="classApplyingFor"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.classApplyingFor}
+                  className={`w-full border p-3 rounded-xl ${errors.classApplyingFor ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 >
                   <option value="">Select Class</option>
                   <option>JSS1</option>
@@ -152,6 +281,11 @@ function Admissions() {
                   <option>SSS1 Arts</option>
                   <option>SSS1 Commercial</option>
                 </select>
+                {errors.classApplyingFor && (
+                  <p className="text-sm text-red-600">
+                    {errors.classApplyingFor}
+                  </p>
+                )}
               </motion.div>
             )}
 
@@ -167,16 +301,28 @@ function Admissions() {
                 <input
                   name="parentName"
                   placeholder="Parent Name"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.parentName}
+                  className={`w-full border p-3 rounded-xl ${errors.parentName ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.parentName && (
+                  <p className="text-sm text-red-600">{errors.parentName}</p>
+                )}
 
                 <input
                   name="parentPhone"
                   placeholder="Parent Phone Number"
-                  className="w-full border p-3 rounded-xl"
+                  value={form.parentPhone}
+                  className={`w-full border p-3 rounded-xl ${errors.parentPhone ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
                 />
+                {errors.parentPhone && (
+                  <p className="text-sm text-red-600">{errors.parentPhone}</p>
+                )}
               </motion.div>
             )}
             {step === 3 && (
@@ -202,13 +348,6 @@ function Admissions() {
                 </div>
               </div>
             )}
-            {/* SUBMIT */}
-            <button
-              type="submit"
-              className="w-full bg-[#062E70] hover:bg-blue-800 text-white py-4 rounded-2xl font-semibold transition"
-            >
-              Submit Application
-            </button>
             <div className="flex justify-between pt-6">
               {step > 0 && (
                 <button
@@ -224,16 +363,27 @@ function Admissions() {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="ml-auto px-6 py-3 bg-[#062E70] text-white rounded-xl"
+                  disabled={!isStepComplete()}
+                  className={`ml-auto px-6 py-3 rounded-xl text-white ${
+                    isStepComplete()
+                      ? "bg-[#062E70] hover:bg-blue-800"
+                      : "bg-gray-300 cursor-not-allowed"
+                  }`}
                 >
                   Next
                 </button>
               ) : (
                 <button
-                  type="submit"
-                  className="ml-auto px-6 py-3 bg-green-600 text-white rounded-xl"
+                  type="button"
+                  onClick={handleFinalSubmit}
+                  disabled={submitted}
+                  className={`ml-auto px-6 py-3 rounded-xl text-white ${
+                    submitted
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700"
+                  }`}
                 >
-                  Submit Application
+                  {submitted ? "Submitted..." : "Submit Application"}
                 </button>
               )}
             </div>

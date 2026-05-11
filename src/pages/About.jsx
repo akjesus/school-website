@@ -181,7 +181,7 @@ function About() {
             {/* OPTIONAL AUDIO */}
             <div className="mb-8">
               <audio controls className="w-full">
-                <source src="/anthem.mp3" type="audio/mpeg" />
+                <source src="/anthem.mpeg" type="audio/mpeg" />
                 Your browser does not support audio playback.
               </audio>
             </div>
@@ -194,7 +194,7 @@ function About() {
                 Maduka University College A citadel of excellence
                 <br />
                 Maduka University College A citadel of knowledge
-                <br /> <b>Verse 1:</b>
+                <br /> <b>VERSE 1:</b>
                 <br /> We'll be all we want to be
                 <br />
                 We'll grow to take glorious seats
@@ -202,7 +202,7 @@ function About() {
                 Bringing love and light to our nation
                 <br />A citadel of knowledge
                 <br />
-                <b>Verse 2:</b>
+                <b>VERSE 2:</b>
                 <br />
                 We are nurtured and groomed
                 <br />

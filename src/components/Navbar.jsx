@@ -2,12 +2,44 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, GraduationCap } from "lucide-react";
 
+const navLinkStyle = `
+  .nav-link {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #062E70;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link.active {
+    color: #062E70;
+    font-weight: 600;
+  }
+  
+  .nav-link.active::after {
+    width: 100%;
+    background-color: #062E70;
+  }
+`;
+
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const linkClass = ({ isActive }) =>
     isActive
-      ? "text-[#062E70] font-semibold border-b-2 border-[#062E70] pb-1"
-      : "text-gray-700 hover:text-[#062E70] transition";
+      ? "nav-link active text-[#062E70] font-semibold"
+      : "nav-link text-gray-700 transition";
 
   const navLinks = [
     {
@@ -43,6 +75,7 @@ export default function Navbar() {
 
   return (
     <>
+      <style>{navLinkStyle}</style>
       {/* NAVBAR */}
       <header className="fixed top-0 left-0 w-full z-50">
         <nav className="backdrop-blur-xl bg-white/80 border-b border-gray-200">
