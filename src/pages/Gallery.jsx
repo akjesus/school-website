@@ -13,12 +13,12 @@ const images = [
   {
     id: 2,
     category: "Classroom",
-    url: "/images/2.jpg",
+    url: "/images/gallery/2.jpeg",
   },
   {
     id: 3,
     category: "Sports",
-    url: "/images/7.jpg",
+    url: "/images/gallery/1.jpeg",
   },
   {
     id: 4,
@@ -32,8 +32,28 @@ const images = [
   },
   {
     id: 6,
+    category: "Events",
+    url: "/images/gallery/7.jpeg",
+  },
+  {
+    id: 7,
+    category: "Sports",
+    url: "/images/gallery/4.jpeg",
+  },
+  {
+    id: 8,
+    category: "Sports",
+    url: "/images/gallery/3.jpeg",
+  },
+  {
+    id: 9,
     category: "Classroom",
-    url: "/images/4.jpg",
+    url: "/images/gallery/5.jpeg",
+  },
+  {
+    id: 10,
+    category: "Classroom",
+    url: "/images/gallery/6.jpeg",
   },
 ];
 

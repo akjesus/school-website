@@ -7,21 +7,21 @@ import "swiper/css/navigation";
 
 const slides = [
   {
-    image: "/images/1.jpg",
+    image: "/images/slider/1.jpeg",
     title: "Building Future Leaders",
     subtitle:
       "World-class secondary education focused on excellence and innovation.",
   },
 
   {
-    image: "/images/2.jpg",
+    image: "/images/slider/2.jpeg",
     title: "A Modern Learning Environment",
     subtitle:
       "Equipping students with skills for the future through modern education.",
   },
 
   {
-    image: "/images/3.jpg",
+    image: "/images/slider/3.jpeg",
     title: "Academic Excellence & Discipline",
     subtitle:
       "Nurturing creativity, leadership, discipline, and academic success.",

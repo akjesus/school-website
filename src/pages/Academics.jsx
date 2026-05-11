@@ -119,7 +119,7 @@ function Academics() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <img
-            src="/images/6.jpg"
+            src="/images/approach.jpeg"
             className="rounded-3xl shadow-xl"
             alt="learning"
           />
