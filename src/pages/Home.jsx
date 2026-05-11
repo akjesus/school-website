@@ -140,10 +140,11 @@ function Home() {
             Give your child access to quality education and leadership
             development.
           </p>
-
-          <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:bg-gray-100 transition">
-            Apply Today
-          </button>
+            <a href="/admissions">
+              <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:cursor-pointer hover:bg-gray-100 transition">
+                Apply Today
+              </button>
+            </a>
         </div>
       </section>
 

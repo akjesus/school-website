@@ -75,13 +75,6 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* DESKTOP BUTTON */}
-              <div className="hidden lg:block">
-                <button className="bg-[#062E70] hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-medium transition duration-300 shadow-lg hover:shadow-xl">
-                  Apply Now
-                </button>
-              </div>
-
               {/* MOBILE MENU BUTTON */}
               <button
                 onClick={() => setMobileMenu(!mobileMenu)}
@@ -115,10 +108,6 @@ export default function Navbar() {
                   {link.name}
                 </NavLink>
               ))}
-
-              <button className="mt-4 bg-[#062E70] hover:bg-blue-800 text-white py-3 rounded-xl font-medium transition">
-                Apply Now
-              </button>
             </div>
           </div>
         </div>

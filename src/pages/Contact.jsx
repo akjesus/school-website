@@ -87,25 +87,25 @@ function Contact() {
               <input
                 type="text"
                 placeholder="Full Name"
-                className="w-full border p-4 rounded-xl"
+                className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <input
                 type="email"
                 placeholder="Email Address"
-                className="w-full border p-4 rounded-xl"
+                className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <input
                 type="text"
                 placeholder="Subject"
-                className="w-full border p-4 rounded-xl"
+                className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <textarea
                 rows="6"
                 placeholder="Write your message..."
-                className="w-full border p-4 rounded-xl"
+                className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <button className="w-full bg-[#062E70] hover:bg-blue-800 transition text-white py-4 rounded-xl font-semibold">

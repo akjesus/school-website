@@ -74,13 +74,17 @@ function HeroSlider() {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                      <button className="bg-[#062E70] hover:bg-blue-800 text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
-                        Explore School
-                      </button>
+                      <a href="/academics">
+                        <button className="bg-[#062E70] hover:cursor-pointer hover:bg-blue-800 text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
+                          Explore School
+                        </button>
+                      </a>
 
-                      <button className="border border-white hover:bg-white hover:text-black text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
-                        Admissions
-                      </button>
+                      <a href="/admissions">
+                        <button className="border border-white hover:bg-white hover:cursor-pointer hover:text-black text-white px-8 py-4 rounded-2xl font-semibold transition duration-300">
+                          Admissions
+                        </button>
+                      </a>
                     </div>
                   </div>
                 </div>
