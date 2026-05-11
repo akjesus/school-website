@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, GraduationCap } from "lucide-react";
+import TextCarousel from "./TextCarousel";
 
 const navLinkStyle = `
   .nav-link {
@@ -36,6 +37,7 @@ const navLinkStyle = `
 
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const home = window.location.pathname === "/";
   const linkClass = ({ isActive }) =>
     isActive
       ? "nav-link active text-[#062E70] font-semibold"
@@ -144,6 +146,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+       {home && <TextCarousel />} 
       </header>
 
       {/* NAVBAR SPACER */}

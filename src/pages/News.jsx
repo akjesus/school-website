@@ -7,12 +7,21 @@ import PageHero from "../components/PageHero";
 const posts = [
   {
     id: 1,
-    title: "First Term Examination Begins",
-    category: "Exams",
-    date: "May 10, 2026",
+    title: "ADMISSION INTO JS 1, JS 2 and SS 1 FOR 2026/2027 ACADEMIC SESSION",
+    category: "Admissions",
+    date: "May 11, 2026",
     author: "School Admin",
-    content:
-      "All students are expected to prepare adequately for the first term examinations starting next week.",
+    content: `Applications are open for suitably qualified candidates for admission into JS 1 JS 2 and SS 1 for 2026/2027 Academic Session.
+
+The admission form is Ten thousand naira (N10,000.00) only payable into:
+SAMUEL MADUKA ONYISHI FOUNDATION
+(MUC main account)
+1012682217
+Keystone Bank
+
+Entrance Exam holds on Saturday May 23rd 2026
+10 am
+Virtual Exam option is available.`,
   },
   {
     id: 2,
@@ -21,7 +30,7 @@ const posts = [
     date: "May 5, 2026",
     author: "Sports Department",
     content:
-      "The annual inter-house sports competition will hold at the school sports ground.",
+      `The annual inter-house sports competition will hold at the school sports ground.`,
   },
   {
     id: 3,

@@ -13,9 +13,13 @@ function Admissions() {
     email: "",
     phone: "",
     address: "",
+    gender: "",
+    dob: "",
     classApplyingFor: "",
+    examPreference: "",
     parentName: "",
     parentPhone: "",
+    proofPayment: null,
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -32,8 +36,27 @@ function Admissions() {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0] || null;
+
+    if (file && !file.type.startsWith("image/")) {
+      setForm((prev) => ({ ...prev, proofPayment: null }));
+      setErrors((prev) => ({
+        ...prev,
+        proofPayment: "Please upload a valid image file.",
+      }));
+      return;
+    }
+
+    setForm((prev) => ({ ...prev, proofPayment: file }));
+    setErrors((prev) => ({ ...prev, proofPayment: "" }));
+  };
+
+  const isFieldComplete = (field) =>
+    field === "proofPayment" ? !!form.proofPayment : !!form[field]?.trim();
+
   const validateField = (fieldName) => {
-    if (!form[fieldName]?.trim()) {
+    if (!isFieldComplete(fieldName)) {
       setErrors((prev) => ({
         ...prev,
         [fieldName]: `${fieldLabels[fieldName]} is required.`,
@@ -46,10 +69,10 @@ function Admissions() {
   };
 
   const requiredFieldsByStep = [
-    ["fullName", "email", "phone"],
-    ["address", "classApplyingFor"],
+    ["fullName", "email", "phone", "gender", "dob"],
+    ["address", "classApplyingFor", "examPreference"],
     ["parentName", "parentPhone"],
-    [],
+    ["proofPayment"],
   ];
 
   const fieldLabels = {
@@ -57,14 +80,18 @@ function Admissions() {
     email: "Email Address",
     phone: "Phone Number",
     address: "Home Address",
+    gender: "Gender",
+    dob: "Date of Birth",
     classApplyingFor: "Class Applying For",
+    examPreference: "Exam Preference",
     parentName: "Parent Name",
     parentPhone: "Parent Phone Number",
+    proofPayment: "Proof of Payment",
   };
 
   const validateStep = () => {
     const missingFields = requiredFieldsByStep[step].filter(
-      (field) => !form[field]?.trim(),
+      (field) => !isFieldComplete(field),
     );
 
     if (missingFields.length > 0) {
@@ -91,7 +118,7 @@ function Admissions() {
   };
 
   const isStepComplete = () =>
-    requiredFieldsByStep[step].every((field) => form[field]?.trim());
+    requiredFieldsByStep[step].every((field) => isFieldComplete(field));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -120,9 +147,13 @@ function Admissions() {
             email: "",
             phone: "",
             address: "",
+            gender: "",
+            dob: "",
             classApplyingFor: "",
+            examPreference: "",
             parentName: "",
             parentPhone: "",
+            proofPayment: null,
           });
           setErrors({});
           setStep(0);
@@ -231,7 +262,7 @@ function Admissions() {
 
                 <input
                   name="phone"
-                  placeholder="Phone Number"
+                  placeholder="Phone Number (whatsapp preferred)"
                   value={form.phone}
                   className={`w-full border p-3 rounded-xl ${errors.phone ? "border-red-500" : "border-gray-300"}`}
                   onChange={handleChange}
@@ -240,6 +271,35 @@ function Admissions() {
                 />
                 {errors.phone && (
                   <p className="text-sm text-red-600">{errors.phone}</p>
+                )}
+
+                <select
+                  name="gender"
+                  value={form.gender}
+                  className={`w-full border p-3 rounded-xl ${errors.gender ? "border-red-500" : "border-gray-300"}`}
+                  onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                {errors.gender && (
+                  <p className="text-sm text-red-600">{errors.gender}</p>
+                )}
+                <input
+                  name="dob"
+                  type="date"
+                  placeholder="Date of Birth"
+                  value={form.dob}
+                  className={`w-full border p-3 rounded-xl ${errors.dob ? "border-red-500" : "border-gray-300"}`}
+                  onChange={handleChange}
+                  onBlur={(e) => validateField(e.target.name)}
+                  required
+                />
+                {errors.dob && (
+                  <p className="text-sm text-red-600">{errors.dob}</p>
                 )}
               </motion.div>
             )}
@@ -265,27 +325,48 @@ function Admissions() {
                   <p className="text-sm text-red-600">{errors.address}</p>
                 )}
 
-                <select
-                  name="classApplyingFor"
-                  value={form.classApplyingFor}
-                  className={`w-full border p-3 rounded-xl ${errors.classApplyingFor ? "border-red-500" : "border-gray-300"}`}
-                  onChange={handleChange}
-                  onBlur={(e) => validateField(e.target.name)}
-                  required
-                >
-                  <option value="">Select Class</option>
-                  <option>JSS1</option>
-                  <option>JSS2</option>
-                  <option>JSS3</option>
-                  <option>SSS1 Science</option>
-                  <option>SSS1 Arts</option>
-                  <option>SSS1 Commercial</option>
-                </select>
-                {errors.classApplyingFor && (
-                  <p className="text-sm text-red-600">
-                    {errors.classApplyingFor}
-                  </p>
-                )}
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <select
+                      name="classApplyingFor"
+                      value={form.classApplyingFor}
+                      className={`w-full border p-3 rounded-xl ${errors.classApplyingFor ? "border-red-500" : "border-gray-300"}`}
+                      onChange={handleChange}
+                      onBlur={(e) => validateField(e.target.name)}
+                      required
+                    >
+                      <option value="">Select Class</option>
+                      <option>JSS1</option>
+                      <option>JSS2</option>
+                      <option>SSS1</option>
+                    </select>
+                    {errors.classApplyingFor && (
+                      <p className="text-sm text-red-600">
+                        {errors.classApplyingFor}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <select
+                      name="examPreference"
+                      value={form.examPreference}
+                      className={`w-full border p-3 rounded-xl ${errors.examPreference ? "border-red-500" : "border-gray-300"}`}
+                      onChange={handleChange}
+                      onBlur={(e) => validateField(e.target.name)}
+                      required
+                    >
+                      <option value="">Select Exam Preference</option>
+                      <option> Physical</option>
+                      <option> Virtual</option>
+                    </select>
+                    {errors.examPreference && (
+                      <p className="text-sm text-red-600">
+                        {errors.examPreference}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </motion.div>
             )}
 
@@ -340,11 +421,45 @@ function Admissions() {
                     <b>Phone:</b> {form.phone}
                   </p>
                   <p>
+                    <b>Gender:</b> {form.gender}
+                  </p>
+                  <p>
+                    <b>Date of Birth:</b> {form.dob}
+                  </p>
+                  <p>
                     <b>Class:</b> {form.classApplyingFor}
+                  </p>
+                  <p>
+                    <b>Exam Preference:</b> {form.examPreference}
                   </p>
                   <p>
                     <b>Parent:</b> {form.parentName}
                   </p>
+                  <p>
+                    <b>Parent Phone:</b> {form.parentPhone}
+                  </p>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-dashed border-gray-300">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Upload Proof of Payment
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="mt-3 w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#062E70] file:text-white hover:file:bg-[#044a49]"
+                  />
+                  {errors.proofPayment && (
+                    <p className="text-sm text-red-600 mt-2">
+                      {errors.proofPayment}
+                    </p>
+                  )}
+                  {form.proofPayment && (
+                    <p className="text-sm text-gray-600 mt-2">
+                      Selected file: {form.proofPayment.name}
+                    </p>
+                  )}
                 </div>
               </div>
             )}
@@ -376,9 +491,9 @@ function Admissions() {
                 <button
                   type="button"
                   onClick={handleFinalSubmit}
-                  disabled={submitted}
+                  disabled={submitted || !form.proofPayment}
                   className={`ml-auto px-6 py-3 rounded-xl text-white ${
-                    submitted
+                    submitted || !form.proofPayment
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-green-600 hover:bg-green-700"
                   }`}

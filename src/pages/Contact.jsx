@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaPhoneAlt,
@@ -9,8 +10,32 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Swal from "sweetalert2";
 
 function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Message Sent!",
+      text: "Thank you for reaching out. We will get back to you soon.",
+      icon: "success",
+      confirmButtonColor: "#062E70",
+    });
+    setForm({ name: "", email: "", subject: "", message: "" });
+  };
+
   return (
     <>
       <Navbar />
@@ -83,32 +108,54 @@ function Contact() {
               Send a Message
             </h2>
 
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
+                required
                 type="text"
+                value={form.name}
+                onChange={handleChange}
+                name="name"
                 placeholder="Full Name"
                 className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <input
+                required
                 type="email"
+                value={form.email}
+                onChange={handleChange}
+                name="email"
                 placeholder="Email Address"
                 className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <input
+                required
                 type="text"
+                value={form.subject}
+                onChange={handleChange}
+                name="subject"
                 placeholder="Subject"
                 className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
               <textarea
+                required
+                value={form.message}
+                onChange={handleChange}
+                name="message"
                 rows="6"
                 placeholder="Write your message..."
                 className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
-              <button className="w-full bg-[#062E70] hover:bg-blue-800 transition text-white py-4 rounded-xl font-semibold">
+              <button
+                type="submit"
+                disabled={
+                  !form.name || !form.email || !form.subject || !form.message
+                }
+                className="w-full bg-[#062E70] hover:bg-blue-800 transition text-white py-4 rounded-xl font-semibold"
+              >
                 Send Message
               </button>
             </form>

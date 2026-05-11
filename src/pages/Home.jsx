@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroSlider from "../components/HeroSlider";
+import LatestNews from "../components/LatestNews";
 function Home() {
   return (
     <>
@@ -140,14 +141,14 @@ function Home() {
             Give your child access to quality education and leadership
             development.
           </p>
-            <a href="/admissions">
-              <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:cursor-pointer hover:bg-gray-100 transition">
-                Apply Today
-              </button>
-            </a>
+          <a href="/admissions">
+            <button className="bg-white text-blue-800 px-8 py-4 rounded-2xl font-bold hover:cursor-pointer hover:bg-gray-100 transition">
+              Apply Today
+            </button>
+          </a>
         </div>
       </section>
-
+      <LatestNews />
       <Footer />
     </>
   );
