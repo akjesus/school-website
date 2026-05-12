@@ -161,7 +161,6 @@ function Admissions() {
           ...form,
           paymentProof: paymentProofUrl,
         });
-        console.log(response);
         if (response.data.success) {
           setSubmitted(true);
           Swal.fire({
