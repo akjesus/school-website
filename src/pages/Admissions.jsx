@@ -196,14 +196,15 @@ function Admissions() {
         setSubmitted(false);
       }
     } catch (error) {
-      console.log("Error:", error.response);
+      console.log( error);
       Swal.fire({
         icon: "error",
         title: "Submission Failed",
         text: `${error.response.data.message || "An error occurred while submitting your application"}.`,
       });
+      setSubmitting(false);
     }
-    setSubmitting(false);
+    
   };
   return (
     <>
@@ -238,14 +239,11 @@ function Admissions() {
             <p>
               <b>(MUC Main Account) 1012682217 Keystone Bank</b>
             </p>
-            <p>
-              {" "}
-              Entrance Exam holds on <b>Saturday May 23rd 2026</b> at 10:00 AM.
+            <p>Entrance Exam holds on <b>Saturday May 23rd 2026</b> at 10:00 AM. </p>
               <p className="text-gray-600 mb-8">A virtual exam option is available.</p>
               <h2 className="text-3xl font-bold text-[#062E70] mb-8 text-center">
                 FILL THE FORM BELOW TO GET STARTED.
               </h2>
-            </p>
           </div>
         </div>
       </section>
