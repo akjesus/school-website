@@ -1,8 +1,9 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { GraduationCap, Target, Eye, Users } from "lucide-react";
+import { GraduationCap, Target, Eye, Users, LoaderCircle } from "lucide-react";
 import { motion } from "framer-motion";
+
 
 function About() {
   return (

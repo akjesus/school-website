@@ -91,12 +91,18 @@ const LatestNews = () => {
               className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition"
             >
               {/* IMAGE */}
-              <div className="h-56 overflow-hidden">
+              <div
+                onClick={() => setSelectedNews(item)}
+                className="h-56 overflow-hidden cursor-pointer relative group"
+              >
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover hover:scale-110 transition duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                 />
+
+                {/* OPTIONAL OVERLAY */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-300"></div>
               </div>
 
               {/* CONTENT */}

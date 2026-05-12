@@ -5,17 +5,20 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
+  FaSpinner,
 } from "react-icons/fa";
-
+import { createContactMessage } from "../api";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Swal from "sweetalert2";
 
 function Contact() {
+  const [sending, setSending] = useState(false);
   const [form, setForm] = useState({
-    name: "",
+    fullName: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -25,15 +28,36 @@ function Contact() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    Swal.fire({
-      title: "Message Sent!",
-      text: "Thank you for reaching out. We will get back to you soon.",
-      icon: "success",
-      confirmButtonColor: "#062E70",
-    });
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setSending(true);
+    try {
+      const res = await createContactMessage(form);
+      if (res.data.success) {
+        Swal.fire({
+          title: "Message Sent!",
+          text: "Thank you for reaching out. We will get back to you soon.",
+          icon: "success",
+          confirmButtonColor: "#062E70",
+        });
+        setForm({ fullName: "", email: "", phone: "", subject: "", message: "" });
+      }
+      else {
+        Swal.fire({
+          icon: "error",
+          title: "Submission Failed",
+          text: `${res.data.message || "An error occurred while submitting your message"}. Please try again.`,
+        });
+      }
+    } catch (error) {
+      console.log("Error:", error.response);
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: `${error.response.data.message || "An error occurred while submitting your message"}. Please try again.`,
+      });
+    }
+    setSending(false);
   };
 
   return (
@@ -112,10 +136,20 @@ function Contact() {
               <input
                 required
                 type="text"
-                value={form.name}
+                value={form.fullName}
                 onChange={handleChange}
-                name="name"
+                name="fullName"
                 placeholder="Full Name"
+                className="w-full border p-4 rounded-xl border-[#062E70]"
+              />
+
+              <input
+                required
+                type="tel"
+                value={form.phone}
+                onChange={handleChange}
+                name="phone"
+                placeholder="Phone Number"
                 className="w-full border p-4 rounded-xl border-[#062E70]"
               />
 
@@ -152,11 +186,13 @@ function Contact() {
               <button
                 type="submit"
                 disabled={
-                  !form.name || !form.email || !form.subject || !form.message
+                  !form.fullName || !form.email || !form.subject || !form.message || sending
                 }
                 className="w-full bg-[#062E70] hover:bg-blue-800 transition text-white py-4 rounded-xl font-semibold"
               >
-                Send Message
+                {sending ? (
+                  <FaSpinner className="animate-spin mx-auto" />
+                ) : ( "Send Message" )}
               </button>
             </form>
           </motion.div>

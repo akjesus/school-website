@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { LoaderCircle } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Swal from "sweetalert2";
+import { createApplication } from "../api";
+import { sub } from "framer-motion/client";
 
 function Admissions() {
   const steps = ["Student Info", "Academic Info", "Parent Info", "Review"];
@@ -15,14 +18,15 @@ function Admissions() {
     address: "",
     gender: "",
     dob: "",
-    classApplyingFor: "",
+    classApplied: "",
     examPreference: "",
     parentName: "",
     parentPhone: "",
-    proofPayment: null,
+    paymentProof: null,
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const nextStep = () => {
     if (!validateStep()) return;
@@ -38,22 +42,21 @@ function Admissions() {
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0] || null;
-
     if (file && !file.type.startsWith("image/")) {
-      setForm((prev) => ({ ...prev, proofPayment: null }));
+      setForm((prev) => ({ ...prev, paymentProof: null }));
       setErrors((prev) => ({
         ...prev,
-        proofPayment: "Please upload a valid image file.",
+        paymentProof: "Please upload a valid image file.",
       }));
       return;
     }
 
-    setForm((prev) => ({ ...prev, proofPayment: file }));
-    setErrors((prev) => ({ ...prev, proofPayment: "" }));
+    setForm((prev) => ({ ...prev, paymentProof: file }));
+    setErrors((prev) => ({ ...prev, paymentProof: "" }));
   };
 
   const isFieldComplete = (field) =>
-    field === "proofPayment" ? !!form.proofPayment : !!form[field]?.trim();
+    field === "paymentProof" ? !!form.paymentProof : !!form[field]?.trim();
 
   const validateField = (fieldName) => {
     if (!isFieldComplete(fieldName)) {
@@ -70,9 +73,9 @@ function Admissions() {
 
   const requiredFieldsByStep = [
     ["fullName", "email", "phone", "gender", "dob"],
-    ["address", "classApplyingFor", "examPreference"],
+    ["address", "classApplied", "examPreference"],
     ["parentName", "parentPhone"],
-    ["proofPayment"],
+    ["paymentProof"],
   ];
 
   const fieldLabels = {
@@ -82,11 +85,11 @@ function Admissions() {
     address: "Home Address",
     gender: "Gender",
     dob: "Date of Birth",
-    classApplyingFor: "Class Applying For",
+    classApplied: "Class Applying For",
     examPreference: "Exam Preference",
     parentName: "Parent Name",
     parentPhone: "Parent Phone Number",
-    proofPayment: "Proof of Payment",
+    paymentProof: "Proof of Payment",
   };
 
   const validateStep = () => {
@@ -124,24 +127,48 @@ function Admissions() {
     e.preventDefault();
   };
 
-  const handleFinalSubmit = () => {
-    Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to submit your application? Please review your details before confirming.",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#047b2c",
-      cancelButtonColor: "#e64c13",
-      confirmButtonText: "Yes, Submit",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
+  const handleFinalSubmit = async () => {
+    setSubmitting(true);
+    try {
+      const result = await Swal.fire({
+        title: "Confirm Submission",
+        text: "Are you sure you want to submit your application? Please review your details before confirming.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#047b2c",
+        cancelButtonColor: "#e64c13",
+        confirmButtonText: "Yes, Submit",
+        cancelButtonText: "Cancel",
+      });
+
       if (result.isConfirmed) {
-        setSubmitted(true);
-        Swal.fire({
-          title: "Success!",
-          text: "Your application has been submitted successfully!",
-          icon: "success",
-        }).then(() => {
+        let paymentProofUrl = "";
+        if (form.paymentProof) {
+          const formData = new FormData();
+          formData.append("file", form.paymentProof);
+          formData.append("upload_preset", "ml_default");
+          const cloudinaryRes = await fetch(
+            import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_URL,
+            {
+              method: "POST",
+              body: formData,
+            },
+          );
+          const cloudinaryData = await cloudinaryRes.json();
+          paymentProofUrl = cloudinaryData.secure_url;
+        }
+        const response = await createApplication({
+          ...form,
+          paymentProof: paymentProofUrl,
+        });
+        console.log(response);
+        if (response.data.success) {
+          setSubmitted(true);
+          Swal.fire({
+            title: "Success!",
+            text: "Your application has been submitted successfully!",
+            icon: "success",
+          });
           setForm({
             fullName: "",
             email: "",
@@ -149,18 +176,34 @@ function Admissions() {
             address: "",
             gender: "",
             dob: "",
-            classApplyingFor: "",
+            classApplied: "",
             examPreference: "",
             parentName: "",
             parentPhone: "",
-            proofPayment: null,
+            paymentProof: null,
           });
-          setErrors({});
-          setStep(0);
-          setSubmitted(false);
-        });
+        } else {
+          console.log(response);
+          Swal.fire({
+            icon: "error",
+            title: "Submission Failed",
+            text: `${response.message || "An error occurred while submitting your application"}`,
+          });
+        }
+        setErrors({});
+        setStep(0);
+      } else {
+        setSubmitted(false);
       }
-    });
+    } catch (error) {
+      console.log("Error:", error.response);
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: `${error.response.data.message || "An error occurred while submitting your application"}.`,
+      });
+    }
+    setSubmitting(false);
   };
   return (
     <>
@@ -173,24 +216,42 @@ function Admissions() {
       />
 
       {/* REQUIREMENTS */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-[#062E70] mb-6 text-center">
             Admission Requirements
           </h2>
 
           <div className="list-disc pl-6 space-y-2 text-gray-600 text-center ">
-            <p>Completed application form</p>
-            <p>Recent passport photograph</p>
-            <p>Previous school report</p>
-            <p>Birth certificate</p>
-            <p>Entrance examination (for new students)</p>
+            <p>
+              Applications are open for suitably qualified candidates for
+              admission into <b>JS 1, JS 2, and SS 1</b> for 2026/2027 Academic
+              Session.
+            </p>
+            <p>
+              The admission form is <b>Ten thousand naira (N10,000.00)</b> only,
+              payable into:{" "}
+            </p>
+            <p>
+              <b>SAMUEL MADUKA ONYISHI FOUNDATION </b>
+            </p>
+            <p>
+              <b>(MUC main account) 1012682217 Keystone Bank</b>
+            </p>
+            <p>
+              {" "}
+              Entrance Exam holds on <b>Saturday May 23rd 2026</b> at 10:00 AM.
+              <p className="text-gray-600 mb-8">A virtual exam option is available.</p>
+              <h2 className="text-3xl font-bold text-[#062E70] mb-8 text-center">
+                FILL THE FORM BELOW TO GET STARTED.
+              </h2>
+            </p>
           </div>
         </div>
       </section>
 
       {/* FORM */}
-      <div className="max-w-4xl mx-auto px-6 mb-10">
+      <div className="max-w-4xl mx-auto px-2 mb-5">
         <div className="flex justify-between text-sm mb-2">
           {steps.map((s, i) => (
             <span
@@ -328,9 +389,9 @@ function Admissions() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <select
-                      name="classApplyingFor"
-                      value={form.classApplyingFor}
-                      className={`w-full border p-3 rounded-xl ${errors.classApplyingFor ? "border-red-500" : "border-gray-300"}`}
+                      name="classApplied"
+                      value={form.classApplied}
+                      className={`w-full border p-3 rounded-xl ${errors.classApplied ? "border-red-500" : "border-gray-300"}`}
                       onChange={handleChange}
                       onBlur={(e) => validateField(e.target.name)}
                       required
@@ -340,9 +401,9 @@ function Admissions() {
                       <option>JSS2</option>
                       <option>SSS1</option>
                     </select>
-                    {errors.classApplyingFor && (
+                    {errors.classApplied && (
                       <p className="text-sm text-red-600">
-                        {errors.classApplyingFor}
+                        {errors.classApplied}
                       </p>
                     )}
                   </div>
@@ -427,7 +488,7 @@ function Admissions() {
                     <b>Date of Birth:</b> {form.dob}
                   </p>
                   <p>
-                    <b>Class:</b> {form.classApplyingFor}
+                    <b>Class:</b> {form.classApplied}
                   </p>
                   <p>
                     <b>Exam Preference:</b> {form.examPreference}
@@ -450,14 +511,14 @@ function Admissions() {
                     onChange={handleFileChange}
                     className="mt-3 w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#062E70] file:text-white hover:file:bg-[#044a49]"
                   />
-                  {errors.proofPayment && (
+                  {errors.paymentProof && (
                     <p className="text-sm text-red-600 mt-2">
-                      {errors.proofPayment}
+                      {errors.paymentProof}
                     </p>
                   )}
-                  {form.proofPayment && (
+                  {form.paymentProof && (
                     <p className="text-sm text-gray-600 mt-2">
-                      Selected file: {form.proofPayment.name}
+                      Selected file: {form.paymentProof.name}
                     </p>
                   )}
                 </div>
@@ -491,14 +552,22 @@ function Admissions() {
                 <button
                   type="button"
                   onClick={handleFinalSubmit}
-                  disabled={submitted || !form.proofPayment}
+                  disabled={submitted || !form.paymentProof}
                   className={`ml-auto px-6 py-3 rounded-xl text-white ${
-                    submitted || !form.proofPayment
+                    submitted || !form.paymentProof
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-green-600 hover:bg-green-700"
                   }`}
                 >
-                  {submitted ? "Submitted..." : "Submit Application"}
+                  {" "}
+                  {submitting ? (
+                    <span className="flex items-center gap-2">
+                      <LoaderCircle className="animate-spin" size={18} />{" "}
+                      Submitting...
+                    </span>
+                  ) : (
+                    "Submit Application"
+                  )}
                 </button>
               )}
             </div>
