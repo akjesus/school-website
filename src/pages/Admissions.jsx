@@ -236,7 +236,7 @@ function Admissions() {
               <b>SAMUEL MADUKA ONYISHI FOUNDATION </b>
             </p>
             <p>
-              <b>(MUC main account) 1012682217 Keystone Bank</b>
+              <b>(MUC Main Account) 1012682217 Keystone Bank</b>
             </p>
             <p>
               {" "}

@@ -72,7 +72,7 @@ export default function Navbar() {
       name: "Contact",
       path: "/contact",
     },
-    { name: "Portal", path: "https://portal.mucollege.com.ng" },
+    // { name: "Portal", path: "https://portal.mucollege.com.ng" },
   ];
 
   return (
