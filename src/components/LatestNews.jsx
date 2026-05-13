@@ -1,46 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCalendarAlt, FaArrowRight, FaTimes } from "react-icons/fa";
+import { getFeaturedNews } from "../api";
+
 const LatestNews = () => {
-    const [selectedNews, setSelectedNews] = useState(null);
-  // DUMMY API DATA
-  const news = [
-    {
-      id: 1,
-      title: "Inter-House Sports Competition Begins Next Week",
-      image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-      date: "May 10, 2026",
-      category: "Sports",
-      excerpt:
-        "Students across all houses are preparing for the annual inter-house sports competition.",
-      content:
-        "The annual inter-house sports competition will begin next week Monday with exciting activities including track events, football competitions, cultural displays, and athletic contests. Students are encouraged to participate actively and support their houses.",
-    },
+  const [news, setNews] = useState([]);
+  const [selectedNews, setSelectedNews] = useState(null);
 
-    {
-      id: 2,
-      title: "WAEC Mock Examination Timetable Released",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
-      date: "May 08, 2026",
-      category: "Academics",
-      excerpt:
-        "The school management has officially released the WAEC mock examination schedule.",
-      content:
-        "The school management has officially released the WAEC mock examination schedule for the upcoming academic year.",
-    },
-
-    {
-      id: 3,
-      title: "New ICT Laboratory Commissioned",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
-      date: "May 05, 2026",
-      category: "Technology",
-      excerpt:
-        "Our newly equipped ICT laboratory is now open for student practical sessions.",
-      content:
-        "Our newly equipped ICT laboratory is now open for student practical sessions.",
-    },
-  ];
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await getFeaturedNews();
+        setNews(response.data.news);  
+      } catch (error) {}
+    };
+    fetchNews();
+  }, []);
 
   return (
     <section className="py-20 bg-gray-50">
@@ -96,7 +71,7 @@ const LatestNews = () => {
                 className="h-56 overflow-hidden cursor-pointer relative group"
               >
                 <img
-                  src={item.image}
+                  src={item.featuredImage}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                 />
@@ -166,7 +141,7 @@ const LatestNews = () => {
               {/* IMAGE */}
               <div className="h-72 md:h-96 overflow-hidden">
                 <img
-                  src={selectedNews.image}
+                  src={selectedNews.featuredImage}
                   alt={selectedNews.title}
                   className="w-full h-full object-cover"
                 />

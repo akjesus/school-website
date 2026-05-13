@@ -22,3 +22,15 @@ export const createContactMessage = (formData) => {
     },
   });
 };
+
+export const getNews = () => {
+  return api.get("/news");
+};
+
+export const getFeaturedNews = () => {
+  return api.get("/news", {
+    params: {
+      featured: true,
+    },
+  });
+};
